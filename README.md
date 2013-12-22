@@ -1,6 +1,8 @@
 KWSwipePickerView
 =================
 
+![KWSwipePickerView](https://dl.dropboxusercontent.com/u/65611701/Preview.gif)
+
 <br />
 
 ##How-To
