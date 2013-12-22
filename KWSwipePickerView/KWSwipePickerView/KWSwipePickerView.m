@@ -48,7 +48,6 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
 
 @interface KWSwipePickerView() <UIGestureRecognizerDelegate>
 {
-    BOOL                            _animated;
     BOOL                            _isBeginUpdates;
     CGPoint                         _contentCenter;
     
@@ -73,6 +72,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
 
 - (void)initialize;
 - (void)handleGesture:(UIPanGestureRecognizer *)gesture;
+- (void)boxTouchDown:(UIButton *)button withEvent:(UIEvent *)event;
 - (void)boxTouchUpInside:(UIButton *)button withEvent:(UIEvent *)event;
 
 - (void)animatedMoveAtIndex:(NSUInteger)index duration:(CGFloat)duration;
@@ -203,6 +203,9 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
 
 - (void)setSelectedIndex:(NSInteger)index animated:(BOOL)animated
 {
+    BOOL originalAnimated = _animated;
+    _animated = animated;
+    
     if(index < 0)
         index = 0;
     if(index >= [_valueArray count])
@@ -236,6 +239,8 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
             [_delegate swipePicker:self didSelectIndex:self.selectedIndex];
         });
     }
+    
+    _animated = originalAnimated;
 }
 
 - (NSUInteger)count
@@ -636,6 +641,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     UIGestureRecognizerState state = [gesture state];
     CGPoint translation = [gesture translationInView:self];
     
+    /// Gesture began
     if(state == UIGestureRecognizerStateBegan)
     {
         if(_delegate &&
@@ -650,6 +656,8 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         prevTime = lastTime;
         prevTranslate = lastTranslate;
     }
+    
+    /// Gesture changed
     else if(state == UIGestureRecognizerStateChanged)
     {
         if(_horizonalMode)
@@ -665,6 +673,8 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         lastTime = [NSDate timeIntervalSinceReferenceDate];
         lastTranslate = translation;
     }
+    
+    /// Gesture ended
     else if(state == UIGestureRecognizerStateEnded ||
             state == UIGestureRecognizerStateCancelled)
     {
@@ -711,17 +721,34 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     [UIView setAnimationDelegate:self];
 }
 
+- (void)boxTouchDown:(UIButton *)button withEvent:(UIEvent *)event
+{
+    if(_delegate &&
+       [(id)_delegate respondsToSelector:
+        @selector(didTouchDownInSwipePicker:)])
+    {
+        [_delegate didTouchDownInSwipePicker:self];
+    }
+}
+
 - (void)boxTouchUpInside:(UIButton *)button withEvent:(UIEvent *)event
 {
     if(_horizonalMode)
     {
         [self setSelectedIndex:(button.frame.origin.x / _boxSize)
-                      animated:_animated];
+                      animated:YES];
     }
     else
     {
         [self setSelectedIndex:(button.frame.origin.y / _boxSize)
-                      animated:_animated];
+                      animated:YES];
+    }
+    
+    if(_delegate &&
+       [(id)_delegate respondsToSelector:
+        @selector(didTouchUpInsideInSwipePicker:)])
+    {
+        [_delegate didTouchUpInsideInSwipePicker:self];
     }
 }
 
@@ -841,6 +868,9 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         [_listView addSubview:boxView];
         [_viewArray insertObject:boxView atIndex:index];
         
+        [boxView addTarget:self
+                    action:@selector(boxTouchDown:withEvent:)
+          forControlEvents:UIControlEventTouchDown];
         [boxView addTarget:self
                     action:@selector(boxTouchUpInside:withEvent:)
           forControlEvents:UIControlEventTouchUpInside];

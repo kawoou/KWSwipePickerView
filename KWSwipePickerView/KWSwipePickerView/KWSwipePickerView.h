@@ -36,6 +36,7 @@
 
 @property (nonatomic, assign)   CGFloat boxSize;
 @property (nonatomic, assign)   BOOL horizonalMode;
+@property (nonatomic, assign)   BOOL animated;
 
 @property (readonly)            NSInteger selectedIndex;
 
