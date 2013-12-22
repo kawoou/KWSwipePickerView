@@ -36,7 +36,7 @@
     if (self) {
         // Custom initialization
         
-        [self.view setBackgroundColor:[UIColor redColor]];
+        [self.view setBackgroundColor:[UIColor whiteColor]];
         
         _swipePickerView = [[KWSwipePickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
         [_swipePickerView setBoxSize:50.0f];

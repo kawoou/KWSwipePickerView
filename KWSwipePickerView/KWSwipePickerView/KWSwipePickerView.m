@@ -61,6 +61,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     
     CGImageRef                      _maskImage;
     
+    UIView                          *_mainView;
     UIView                          *_listView;
     NSMutableArray                  *_valueArray;
     NSMutableArray                  *_statusArray;
@@ -488,6 +489,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
+    [_mainView setFrame:frame];
     
     _contentCenter = CGPointMake(frame.size.width  * 0.5f,
                                  frame.size.height * 0.5f);
@@ -567,14 +569,10 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     CALayer *layerMask = [CALayer layer];
     layerMask.frame = self.frame;
     layerMask.contents = (__bridge id)_maskImage;
-    self.layer.mask = layerMask;
-    self.layer.masksToBounds = YES;
+    _mainView.layer.mask = layerMask;
+    _mainView.layer.masksToBounds = YES;
 
     CGContextRelease(gc);
-}
-
-- (void)setBackgroundColor:(UIColor *)backgroundColor
-{
 }
 
 #pragma mark - Private methods
@@ -604,11 +602,13 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     /* View */
     _maskImage = nil;
     
+    _mainView = [[UIView alloc] init];
     _listView = [[UIView alloc] init];
     _valueArray = [[NSMutableArray alloc] init];
     _statusArray = [[NSMutableArray alloc] init];
     _viewArray = [[NSMutableArray alloc] init];
-    [self addSubview:_listView];
+    [_mainView addSubview:_listView];
+    [self addSubview:_mainView];
     [self setOpaque:NO];
     [self setClipsToBounds:YES];
     
