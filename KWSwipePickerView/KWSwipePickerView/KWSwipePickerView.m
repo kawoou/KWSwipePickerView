@@ -229,15 +229,20 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
        [(id)_delegate
         respondsToSelector:@selector(swipePicker:didSelectIndex:)])
     {
-        double delayInSeconds = 0.0f;
         if(_animated)
-            delayInSeconds = kSwipePickerMoveListAnimationTime;
-        
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
-                        (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        {
+            double delayInSeconds = kSwipePickerMoveListAnimationTime;
+            
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
+                                    (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [_delegate swipePicker:self didSelectIndex:self.selectedIndex];
+            });
+        }
+        else
+        {
             [_delegate swipePicker:self didSelectIndex:self.selectedIndex];
-        });
+        }
     }
     
     _animated = originalAnimated;
@@ -245,13 +250,13 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
 
 - (NSUInteger)count
 {
-    return [_valueArray count];
+    return [_viewArray count];
 }
 
 - (void)addString:(NSString *)string
 {
-    [self insertAfterOfIndex:(_valueArray.count - 1)
-                 withStrings:[NSArray arrayWithObject:string]];
+    [self insertBeforeOfIndex:_valueArray.count
+                  withStrings:[NSArray arrayWithObject:string]];
 }
 
 - (void)insertString:(NSString *)string atIndex:(NSUInteger)index
@@ -394,7 +399,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     {
         if(_commitSelectedIndex <= range.location + range.length)
             _selectedIndex = range.location -
-                             (_commitSelectedIndex - _selectedIndex) - 1;
+            (_commitSelectedIndex - _selectedIndex);
         else
             _selectedIndex -= range.length;
         
@@ -434,7 +439,10 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
 - (void)insertBeforeOfIndex:(NSUInteger)index withStrings:(NSArray *)strings
 {
     NSUInteger count = [strings count];
-    NSUInteger prevLength = _selectedIndex - _commitSelectedIndex;
+    NSUInteger prevLength = 0;
+    if(_selectedIndex != -1) prevLength = _selectedIndex;
+    if(_commitSelectedIndex != -1) prevLength -= _commitSelectedIndex;
+    
     CGRect frame = _listView.frame;
     if(_horizonalMode)
         frame.size.width = _boxSize * ([_valueArray count] + count);
@@ -466,7 +474,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         [_statusArray insertObject:IntNumber(KWSwipePickerViewStatusInsert)
                            atIndex:(index + prevLength)];
     }
-    for (i = index + count; i < [_valueArray count]; i ++)
+    for (i = index + prevLength + count; i < [_valueArray count]; i ++)
     {
         if(ToInt(_statusArray[i]) < KWSwipePickerViewStatusMove)
             _statusArray[i] = IntNumber(KWSwipePickerViewStatusMove);
@@ -494,7 +502,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    [_mainView setFrame:frame];
+    [_mainView setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     
     _contentCenter = CGPointMake(frame.size.width  * 0.5f,
                                  frame.size.height * 0.5f);
@@ -529,11 +537,11 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
                                             (uint32_t)kCGImageAlphaOnly);
     CGGradientRef gradient =
     CGGradientCreateWithColors(colorSpace,
-                (__bridge CFArrayRef)
-                [NSArray arrayWithObjects:
+               (__bridge CFArrayRef)
+               [NSArray arrayWithObjects:
                 (__bridge id)[UIColor colorWithWhite:1 alpha:0.3].CGColor,
                 (__bridge id)[UIColor colorWithWhite:1 alpha:1].CGColor, nil],
-                NULL);
+               NULL);
     if(_horizonalMode)
     {
         CGFloat size = (frame.size.width - _boxSize) * 0.5f;
@@ -572,11 +580,11 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     _maskImage = CGBitmapContextCreateImage(gc);
     
     CALayer *layerMask = [CALayer layer];
-    layerMask.frame = self.frame;
+    layerMask.frame = _mainView.frame;
     layerMask.contents = (__bridge id)_maskImage;
     _mainView.layer.mask = layerMask;
     _mainView.layer.masksToBounds = YES;
-
+    
     CGContextRelease(gc);
 }
 
@@ -682,12 +690,12 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         CGPoint swipeVelocity = CGPointZero;
         
         NSTimeInterval seconds =
-            [NSDate timeIntervalSinceReferenceDate] - prevTime;
+        [NSDate timeIntervalSinceReferenceDate] - prevTime;
         if (seconds != 0.0f)
         {
             swipeVelocity =
-                CGPointMake((translation.x - prevTranslate.x) / seconds,
-                            (translation.y - prevTranslate.y) / seconds);
+            CGPointMake((translation.x - prevTranslate.x) / seconds,
+                        (translation.y - prevTranslate.y) / seconds);
         }
         
         float inertiaSeconds = kSwipePickerSwipingAnimationTime;
@@ -758,10 +766,14 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     
     if(status == KWSwipePickerViewStatusInsert)
     {
-        CGFloat delay =
-            abs((int)(index - _selectedIndex)) / _insertMaxLength *
+        CGFloat delay = 0;
+        
+        if(_insertMaxLength != 0)
+        {
+            delay = abs((int)(index - _selectedIndex)) / _insertMaxLength *
             kSwipePickerMoveListAnimationTime +
             kSwipePickerInsertBoxPauseTime;
+        }
         
         if(_animated)
         {
@@ -815,12 +827,36 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     UIButton *boxView = _viewArray[index];
     if(_animated)
     {
+        CGFloat otherSize = _listView.frame.size.width;
+        CGFloat animationSize = index * _boxSize;
+        if(_horizonalMode)
+            otherSize = _listView.frame.size.height;
+        if(index > _selectedIndex)
+            animationSize = (index - _selectedIndex) * _boxSize;
+        
         [UIView animateWithDuration:duration
-                         animations:^{
-                             boxView.alpha = 0.0f;
-                         } completion:^(BOOL finished){
-                             [boxView removeFromSuperview];
-                         }];
+                         animations:^
+         {
+             if(_horizonalMode)
+             {
+                 boxView.frame = CGRectMake(animationSize,
+                                            0,
+                                            _boxSize,
+                                            otherSize);
+             }
+             else
+             {
+                 boxView.frame = CGRectMake(0,
+                                            animationSize,
+                                            otherSize,
+                                            _boxSize);
+             }
+             boxView.alpha = 0.0f;
+         }
+                         completion:^(BOOL finished)
+         {
+             [boxView removeFromSuperview];
+         }];
     }
     else
     {
@@ -922,12 +958,12 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         if(_horizonalMode)
         {
             newPoint = _contentCenter.x *
-                sin(newPoint / _contentCenter.x * 0.5f * 1.570796f);
+            sin(newPoint / _contentCenter.x * 0.5f * 1.570796f);
         }
         else
         {
             newPoint = _contentCenter.y *
-                sin(newPoint / _contentCenter.y * 0.5f * 1.570796f);
+            sin(newPoint / _contentCenter.y * 0.5f * 1.570796f);
         }
         newPoint *= 0.8;
     }
@@ -937,7 +973,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         {
             newPoint = -_listView.frame.size.width + _boxSize - newPoint;
             newPoint = _contentCenter.x *
-                sin(newPoint / _contentCenter.x * 0.5f * 1.570796f);
+            sin(newPoint / _contentCenter.x * 0.5f * 1.570796f);
             newPoint = -_listView.frame.size.width - newPoint;
             newPoint *= 0.8;
         }
@@ -948,7 +984,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         {
             newPoint = -_listView.frame.size.height + _boxSize - newPoint;
             newPoint = _contentCenter.y *
-                sin(newPoint / _contentCenter.y * 0.5f * 1.570796f);
+            sin(newPoint / _contentCenter.y * 0.5f * 1.570796f);
             newPoint = -_listView.frame.size.height - newPoint;
             newPoint *= 0.8;
         }
@@ -976,7 +1012,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
             if(ToInt(_statusArray[index]) == KWSwipePickerViewStatusInsert)
                 _insertMaxLength = _selectedIndex - index;
         }
-        for (i = _selectedIndex + _insertMaxLength; i < [_statusArray count]; i ++)
+        for (i = _selectedIndex+_insertMaxLength; i < [_valueArray count]; i ++)
         {
             if(ToInt(_statusArray[i]) == KWSwipePickerViewStatusInsert)
                 _insertMaxLength = i - _selectedIndex;
@@ -1010,6 +1046,8 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     for (i = 0; i < [_valueArray count]; i ++)
     {
         NSInteger status = ToInt(_statusArray[i]);
+        if(status == KWSwipePickerViewStatusNone) continue;
+        
         [self animatedAtIndex:i];
         if(status == KWSwipePickerViewStatusDelete) i --;
     }
