@@ -38,12 +38,12 @@
         
         [self.view setBackgroundColor:[UIColor whiteColor]];
         
-        _swipePickerView = [[KWSwipePickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+        _swipePickerView = [[KWSwipePickerView alloc] initWithFrame:CGRectMake(0, 60, 320, 100)];
         [_swipePickerView setBoxSize:50.0f];
         [_swipePickerView setDelegate:self];
         [_swipePickerView setHorizonalMode:YES];
         [_swipePickerView setTextColor:[UIColor whiteColor]];
-        [_swipePickerView setBackgroundColor:[UIColor redColor]];
+        [_swipePickerView setBackgroundColor:[UIColor colorWithRed:0.7 green:0 blue:0 alpha:1]];
         [_swipePickerView insertBeforeOfIndex:0 withStrings:[NSArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E", nil]];
         [self.view addSubview:_swipePickerView];
     }
