@@ -57,6 +57,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     NSInteger                       _selectedIndex;
     NSInteger                       _commitSelectedIndex;
     NSInteger                       _insertMaxLength;
+    NSInteger                       _removingCount;
     
     CGImageRef                      _maskImage;
     
@@ -384,11 +385,13 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
 {
     NSUInteger i;
     
+    _removingCount += range.length;
+    
     CGRect frame = _listView.frame;
     if(_horizonalMode)
-        frame.size.width = _boxSize * ([_valueArray count] + range.length);
+        frame.size.width = _boxSize * ([_valueArray count] - _removingCount);
     else
-        frame.size.height = _boxSize * ([_valueArray count] + range.length);
+        frame.size.height = _boxSize * ([_valueArray count] - _removingCount);
     _listView.frame = frame;
     
     if(_selectedIndex == -1)
@@ -608,6 +611,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     _isBeginUpdates = NO;
     _contentCenter = CGPointMake(0, 0);
     
+    _removingCount = 0;
     _boxSize = 78;
     _horizonalMode = NO;
     _selectedIndex = -1;
@@ -659,6 +663,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
             [_delegate didTouchDownInSwipePicker:self];
         }
         
+        _gesturePoint = 0.0f;
         lastTime = [NSDate timeIntervalSinceReferenceDate];
         lastTranslate = translation;
         prevTime = lastTime;
@@ -828,35 +833,37 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     if(_animated)
     {
         CGFloat otherSize = _listView.frame.size.width;
-        CGFloat animationSize = index * _boxSize;
+        CGFloat animationSize;
         if(_horizonalMode)
             otherSize = _listView.frame.size.height;
         if(index > _selectedIndex)
-            animationSize = (index - _selectedIndex) * _boxSize;
+            animationSize = (index + _removingCount++ - 2) * _boxSize;
+        else
+            animationSize = (index + _removingCount++ - 1) * _boxSize;
         
         [UIView animateWithDuration:duration
                          animations:^
-         {
-             if(_horizonalMode)
-             {
-                 boxView.frame = CGRectMake(animationSize,
-                                            0,
-                                            _boxSize,
-                                            otherSize);
-             }
-             else
-             {
-                 boxView.frame = CGRectMake(0,
-                                            animationSize,
-                                            otherSize,
-                                            _boxSize);
-             }
-             boxView.alpha = 0.0f;
-         }
+                         {
+                             if(_horizonalMode)
+                             {
+                                 boxView.frame = CGRectMake(animationSize,
+                                                            0,
+                                                            _boxSize,
+                                                            otherSize);
+                             }
+                             else
+                             {
+                                 boxView.frame = CGRectMake(0,
+                                                            animationSize,
+                                                            otherSize,
+                                                            _boxSize);
+                             }
+                             boxView.alpha = 0.0f;
+                         }
                          completion:^(BOOL finished)
-         {
-             [boxView removeFromSuperview];
-         }];
+                         {
+                             [boxView removeFromSuperview];
+                         }];
     }
     else
     {
@@ -974,8 +981,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
             newPoint = -_listView.frame.size.width + _boxSize - newPoint;
             newPoint = _contentCenter.x *
             sin(newPoint / _contentCenter.x * 0.5f * 1.570796f);
-            newPoint = -_listView.frame.size.width - newPoint;
-            newPoint *= 0.8;
+            newPoint = -_listView.frame.size.width + _boxSize - newPoint * 0.8;
         }
     }
     else
@@ -985,8 +991,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
             newPoint = -_listView.frame.size.height + _boxSize - newPoint;
             newPoint = _contentCenter.y *
             sin(newPoint / _contentCenter.y * 0.5f * 1.570796f);
-            newPoint = -_listView.frame.size.height - newPoint;
-            newPoint *= 0.8;
+            newPoint = -_listView.frame.size.height + _boxSize - newPoint * 0.8;
         }
     }
     
@@ -1003,6 +1008,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         _animated = NO;
     }
     
+    _removingCount = 0;
     _insertMaxLength = 0;
     if(_selectedIndex != -1)
     {
@@ -1055,6 +1061,7 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     if(firstInsert)
         _animated = originalAnimated;
     
+    _removingCount = 0;
     _commitSelectedIndex = _selectedIndex;
 }
 
