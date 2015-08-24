@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                = "KWSwipePickerView"
   s.version             = "1.1"
-  s.summary             = "Expendable Swipe View!"
+  s.summary             = "Expendable Swipe View"
   s.homepage            = "http://github.com/Kawoou/KWSwipePickerView"
   s.license             = { :type => 'MIT', :file => 'LICENSE' }
   s.author              = { "Kawoou" => "kawoou@kawoou.kr" }

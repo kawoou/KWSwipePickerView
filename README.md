@@ -5,6 +5,12 @@ KWSwipePickerView
 
 <br />
 
+[![CocoaPods](http://img.shields.io/cocoapods/v/JLToast.svg?style=flat)](http://cocoapods.org/?q=name%3AKWDrawerController%20author%3Akawoou)
+
+Expendable Swipe View
+
+<br />
+
 ##How-To
 You can either simply drag and drop the `KWSwipePickerView/KWSwipePickerView` folder into your existing project or add the library as a submodule and reference `KWSwipePickerView.xcodeproj` from within your own project.
 
