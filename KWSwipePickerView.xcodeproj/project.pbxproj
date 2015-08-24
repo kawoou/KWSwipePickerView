@@ -9,34 +9,19 @@
 /* Begin PBXBuildFile section */
 		9D11BF5A1866F45F00B66590 /* KWSwipePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D11BF591866F45F00B66590 /* KWSwipePickerView.m */; };
 		9D15EDB21864BA2F00A27293 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15EDB11864BA2F00A27293 /* Foundation.framework */; };
-		9D15EDB41864BA2F00A27293 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15EDB31864BA2F00A27293 /* CoreGraphics.framework */; };
 		9D15EDB61864BA2F00A27293 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15EDB51864BA2F00A27293 /* UIKit.framework */; };
 		9D15EDBC1864BA2F00A27293 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D15EDBA1864BA2F00A27293 /* InfoPlist.strings */; };
 		9D15EDBE1864BA2F00A27293 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D15EDBD1864BA2F00A27293 /* main.m */; };
 		9D15EDC21864BA2F00A27293 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D15EDC11864BA2F00A27293 /* AppDelegate.m */; };
 		9D15EDC41864BA2F00A27293 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D15EDC31864BA2F00A27293 /* Images.xcassets */; };
-		9D15EDCB1864BA2F00A27293 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15EDCA1864BA2F00A27293 /* XCTest.framework */; };
-		9D15EDCC1864BA2F00A27293 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15EDB11864BA2F00A27293 /* Foundation.framework */; };
-		9D15EDCD1864BA2F00A27293 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15EDB51864BA2F00A27293 /* UIKit.framework */; };
 		9D15EDE518650A2C00A27293 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D15EDE418650A2C00A27293 /* MainViewController.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9D15EDCE1864BA2F00A27293 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D15EDA61864BA2F00A27293 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9D15EDAD1864BA2F00A27293;
-			remoteInfo = KWSwipePickerView;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9D11BF581866F45F00B66590 /* KWSwipePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWSwipePickerView.h; sourceTree = "<group>"; };
 		9D11BF591866F45F00B66590 /* KWSwipePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KWSwipePickerView.m; sourceTree = "<group>"; };
 		9D15EDAE1864BA2F00A27293 /* KWSwipePickerView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KWSwipePickerView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D15EDB11864BA2F00A27293 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		9D15EDB31864BA2F00A27293 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9D15EDB51864BA2F00A27293 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D15EDB91864BA2F00A27293 /* KWSwipePickerView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KWSwipePickerView-Info.plist"; sourceTree = "<group>"; };
 		9D15EDBB1864BA2F00A27293 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -45,7 +30,6 @@
 		9D15EDC01864BA2F00A27293 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9D15EDC11864BA2F00A27293 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9D15EDC31864BA2F00A27293 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9D15EDC91864BA2F00A27293 /* KWSwipePickerViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KWSwipePickerViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D15EDCA1864BA2F00A27293 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9D15EDE318650A2C00A27293 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		9D15EDE418650A2C00A27293 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -56,19 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D15EDB41864BA2F00A27293 /* CoreGraphics.framework in Frameworks */,
 				9D15EDB61864BA2F00A27293 /* UIKit.framework in Frameworks */,
 				9D15EDB21864BA2F00A27293 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9D15EDC61864BA2F00A27293 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9D15EDCB1864BA2F00A27293 /* XCTest.framework in Frameworks */,
-				9D15EDCD1864BA2F00A27293 /* UIKit.framework in Frameworks */,
-				9D15EDCC1864BA2F00A27293 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				9D15EDAE1864BA2F00A27293 /* KWSwipePickerView.app */,
-				9D15EDC91864BA2F00A27293 /* KWSwipePickerViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				9D15EDB11864BA2F00A27293 /* Foundation.framework */,
-				9D15EDB31864BA2F00A27293 /* CoreGraphics.framework */,
 				9D15EDB51864BA2F00A27293 /* UIKit.framework */,
 				9D15EDCA1864BA2F00A27293 /* XCTest.framework */,
 			);
@@ -158,24 +129,6 @@
 			productReference = 9D15EDAE1864BA2F00A27293 /* KWSwipePickerView.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9D15EDC81864BA2F00A27293 /* KWSwipePickerViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9D15EDDD1864BA2F00A27293 /* Build configuration list for PBXNativeTarget "KWSwipePickerViewTests" */;
-			buildPhases = (
-				9D15EDC51864BA2F00A27293 /* Sources */,
-				9D15EDC61864BA2F00A27293 /* Frameworks */,
-				9D15EDC71864BA2F00A27293 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9D15EDCF1864BA2F00A27293 /* PBXTargetDependency */,
-			);
-			name = KWSwipePickerViewTests;
-			productName = KWSwipePickerViewTests;
-			productReference = 9D15EDC91864BA2F00A27293 /* KWSwipePickerViewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,11 +137,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Kawoou;
-				TargetAttributes = {
-					9D15EDC81864BA2F00A27293 = {
-						TestTargetID = 9D15EDAD1864BA2F00A27293;
-					};
-				};
 			};
 			buildConfigurationList = 9D15EDA91864BA2F00A27293 /* Build configuration list for PBXProject "KWSwipePickerView" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -203,7 +151,6 @@
 			projectRoot = "";
 			targets = (
 				9D15EDAD1864BA2F00A27293 /* KWSwipePickerView */,
-				9D15EDC81864BA2F00A27293 /* KWSwipePickerViewTests */,
 			);
 		};
 /* End PBXProject section */
@@ -215,13 +162,6 @@
 			files = (
 				9D15EDBC1864BA2F00A27293 /* InfoPlist.strings in Resources */,
 				9D15EDC41864BA2F00A27293 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9D15EDC71864BA2F00A27293 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,22 +179,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9D15EDC51864BA2F00A27293 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9D15EDCF1864BA2F00A27293 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9D15EDAD1864BA2F00A27293 /* KWSwipePickerView */;
-			targetProxy = 9D15EDCE1864BA2F00A27293 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9D15EDBA1864BA2F00A27293 /* InfoPlist.strings */ = {
@@ -368,48 +293,6 @@
 			};
 			name = Release;
 		};
-		9D15EDDE1864BA2F00A27293 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KWSwipePickerView.app/KWSwipePickerView";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KWSwipePickerView/KWSwipePickerView-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "KWSwipePickerViewTests/KWSwipePickerViewTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		9D15EDDF1864BA2F00A27293 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KWSwipePickerView.app/KWSwipePickerView";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KWSwipePickerView/KWSwipePickerView-Prefix.pch";
-				INFOPLIST_FILE = "KWSwipePickerViewTests/KWSwipePickerViewTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -427,15 +310,6 @@
 			buildConfigurations = (
 				9D15EDDB1864BA2F00A27293 /* Debug */,
 				9D15EDDC1864BA2F00A27293 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9D15EDDD1864BA2F00A27293 /* Build configuration list for PBXNativeTarget "KWSwipePickerViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9D15EDDE1864BA2F00A27293 /* Debug */,
-				9D15EDDF1864BA2F00A27293 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -677,7 +677,8 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
             _gesturePoint += translation.x;
         else
             _gesturePoint += translation.y;
-        [self reorderObjects];
+        
+        [self updatePosition];
         
         [gesture setTranslation:CGPointZero inView:self];
         
@@ -954,11 +955,8 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     }
 }
 
-- (void)reorderObjects
+- (void)updatePosition
 {
-    NSUInteger i;
-    BOOL firstInsert = NO;
-    BOOL originalAnimated = _animated;
     CGFloat newPoint = -_globalPoint + _gesturePoint;
     if(newPoint > 0)
     {
@@ -996,6 +994,27 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
     }
     
     CGFloat position = newPoint - (_boxSize * 0.5f);
+    if(_horizonalMode)
+    {
+        [_listView setFrame:CGRectMake(_contentCenter.x + position,
+                                       _listView.frame.origin.y,
+                                       _listView.frame.size.width,
+                                       _listView.frame.size.height)];
+    }
+    else
+    {
+        [_listView setFrame:CGRectMake(_listView.frame.origin.x,
+                                       _contentCenter.y + position,
+                                       _listView.frame.size.width,
+                                       _listView.frame.size.height)];
+    }
+}
+
+- (void)reorderObjects
+{
+    NSUInteger i;
+    BOOL firstInsert = NO;
+    BOOL originalAnimated = _animated;
     
     for (i = 0; i < [_statusArray count]; i ++)
     {
@@ -1030,20 +1049,9 @@ static const CGFloat kSwipePickerSwipingAnimationTime = 0.5;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:kSwipePickerMoveListAnimationTime];
     }
-    if(_horizonalMode)
-    {
-        [_listView setFrame:CGRectMake(_contentCenter.x + position,
-                                       _listView.frame.origin.y,
-                                       _listView.frame.size.width,
-                                       _listView.frame.size.height)];
-    }
-    else
-    {
-        [_listView setFrame:CGRectMake(_listView.frame.origin.x,
-                                       _contentCenter.y + position,
-                                       _listView.frame.size.width,
-                                       _listView.frame.size.height)];
-    }
+    
+    [self updatePosition];
+    
     if(_animated)
     {
         [UIView commitAnimations];

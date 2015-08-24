@@ -29,6 +29,7 @@ You can either simply drag and drop the `KWSwipePickerView/KWSwipePickerView` fo
 ## Changelog
 
 + 1.0 First Release.
++ 1.1 Performance Improvement.
 
 <br />
 
