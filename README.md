@@ -5,7 +5,7 @@ KWSwipePickerView
 
 <br />
 
-[![CocoaPods](http://img.shields.io/cocoapods/v/JLToast.svg?style=flat)](http://cocoapods.org/?q=name%3AKWDrawerController%20author%3Akawoou)
+[![CocoaPods](http://img.shields.io/cocoapods/v/JLToast.svg?style=flat)](http://cocoapods.org/?q=name%3AKWSwipePickerView%20author%3Akawoou)
 
 Expendable Swipe View
 
@@ -26,6 +26,7 @@ You can either simply drag and drop the `KWSwipePickerView/KWSwipePickerView` fo
 <br />
 
 ##Requirements
+- Support iOS 7
 - Requires Automatic Reference Counting (ARC)
 
 > If you require non-ARC compatibility, you will need to set the `-fobjc-arc` compiler flag on all of the KWSwipePickerView source files.
