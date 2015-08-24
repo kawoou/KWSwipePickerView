@@ -30,7 +30,6 @@
 		9D15EDC01864BA2F00A27293 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9D15EDC11864BA2F00A27293 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9D15EDC31864BA2F00A27293 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9D15EDCA1864BA2F00A27293 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9D15EDE318650A2C00A27293 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		9D15EDE418650A2C00A27293 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,7 +78,6 @@
 			children = (
 				9D15EDB11864BA2F00A27293 /* Foundation.framework */,
 				9D15EDB51864BA2F00A27293 /* UIKit.framework */,
-				9D15EDCA1864BA2F00A27293 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

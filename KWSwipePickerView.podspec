@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author              = { "Kawoou" => "kawoou@kawoou.kr" }
   s.source              = { :git => "https://github.com/Kawoou/KWSwipePickerView.git", :tag => "#{s.version}" }
   s.platform            = :ios, 7.0
-  s.public_header_files = 'KWDrawerController/KWDrawerController/KWDrawer.h'
+  s.public_header_files = 'KWSwipePickerView/KWSwipePickerView/KWSwipePickerView.h'
   s.frameworks          = 'UIKit', 'Foundation', 'QuartzCore'
   s.requires_arc        = true
   s.source_files        = 'KWSwipePickerView/KWSwipePickerView/*'
